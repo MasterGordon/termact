@@ -1,0 +1,15 @@
+{
+  "name": "termact",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/ansi-escape-sequences": "^4.0.4",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ansi-escape-sequences": "^6.2.2"
+  }
+}
