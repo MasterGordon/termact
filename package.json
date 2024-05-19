@@ -2,6 +2,9 @@
   "name": "termact",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
     "@types/ansi-escape-sequences": "^4.0.4",
     "@types/bun": "latest"
