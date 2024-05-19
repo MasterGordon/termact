@@ -1,0 +1,21 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`colors 1`] = `"[48;2;255;0;0m[38;2;240;240;240m[1mHello world[0m"`;
+
+exports[`frame 1`] = `
+"┌───────────┐
+│Hello world│
+└───────────┘"
+`;
+
+exports[`center 1`] = `
+"Hello world
+   Test
+   12345"
+`;
+
+exports[`right 1`] = `
+"Hello world
+       Test
+      12345"
+`;
