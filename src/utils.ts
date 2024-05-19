@@ -1,3 +1,5 @@
+import type { Frame } from "./types/Frame";
+
 export const hasColorSupport = () => {
   return (
     process.env.COLORTERM === "truecolor" || process.env.COLORTERM === "24bit"
@@ -42,3 +44,58 @@ export const bg = (args: [number, number, number] | string) => {
 };
 
 export const reset = () => "\x1b[0m";
+
+export const bold = () => "\x1b[1m";
+
+export const dim = () => "\x1b[2m";
+
+export const italic = () => "\x1b[3m";
+
+export const underline = () => "\x1b[4m";
+
+export const inverse = () => "\x1b[7m";
+
+export const hidden = () => "\x1b[8m";
+
+export const cleanse = (text: string) => text.replace(/\u001b\[.+?m/g, "");
+
+export const frame = (text: string, frame: Frame) => {
+  const {
+    vertical,
+    horizontal,
+    cornerTopLeft,
+    cornerTopRight,
+    cornerBottomLeft,
+    cornerBottomRight,
+  } = frame;
+
+  const textWidth = Math.max(
+    ...cleanse(text)
+      .split("\n")
+      .map((l) => l.length)
+  );
+
+  const modifiedText = text
+    .split("\n")
+    .map((l) => vertical + l.padEnd(textWidth) + vertical)
+    .join("\n");
+  return `${cornerTopLeft}${horizontal.repeat(textWidth)}${cornerTopRight}
+${modifiedText}
+${cornerBottomLeft}${horizontal.repeat(textWidth)}${cornerBottomRight}`;
+};
+
+export const center = (text: string) => {
+  const textWidth = Math.max(...text.split("\n").map((l) => l.length));
+  return text
+    .split("\n")
+    .map((l) => " ".repeat((textWidth - l.length) / 2) + l)
+    .join("\n");
+};
+
+export const right = (text: string) => {
+  const textWidth = Math.max(...text.split("\n").map((l) => l.length));
+  return text
+    .split("\n")
+    .map((l) => l.padStart(textWidth))
+    .join("\n");
+};

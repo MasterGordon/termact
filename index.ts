@@ -1,7 +1,21 @@
 import { char } from "./src/char";
 import myAnsi from "./src/my-ansi";
+import type { Frame } from "./src/types/Frame";
 import uniPrint from "./src/uni-print";
-import { bg, fg, reset } from "./src/utils";
+import {
+  bg,
+  bold,
+  center,
+  dim,
+  fg,
+  frame,
+  hidden,
+  inverse,
+  italic,
+  right,
+  reset,
+  underline,
+} from "./src/utils";
 
 const c = {
   c1: "#191D32",
@@ -44,7 +58,25 @@ process.stdin.on("data", (data: string) => {
   }
 });
 
-console.log(`${bg(c.c5)}${fg(c.text)}Hello world${reset()}`);
+const frameConfig: Frame = {
+  vertical: "│",
+  horizontal: "─",
+  cornerTopLeft: "┌",
+  cornerTopRight: "┐",
+  cornerBottomLeft: "└",
+  cornerBottomRight: "┘",
+};
+
+console.log(uniPrint(`${bg(c.c5)}${fg(c.text)}${bold()}Hello world${reset()}`));
+console.log(
+  `${frame(
+    `${bg(c.c5)}${fg(c.text)}${bold()}Hello world${reset()}`,
+    frameConfig
+  )}`
+);
+
+console.log(`${frame(center("Hello world\nTest\n12345"), frameConfig)}`);
+console.log(`${frame(right("Hello world\nTest\n12345"), frameConfig)}`);
 
 // await wait(5000);
 
