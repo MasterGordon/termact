@@ -7,10 +7,9 @@
   },
   "devDependencies": {
     "@types/ansi-escape-sequences": "^4.0.4",
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "@types/bun": "latest",
+    "@xterm/headless": "^5.5.0",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "ansi-escape-sequences": "^6.2.2"

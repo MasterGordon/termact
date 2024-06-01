@@ -99,3 +99,7 @@ export const right = (text: string) => {
     .map((l) => l.padStart(textWidth))
     .join("\n");
 };
+
+export const moveCursor = (x: number, y: number) => {
+  return `\x1b[${y};${x}H`;
+};
