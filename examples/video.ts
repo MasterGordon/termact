@@ -37,7 +37,7 @@ const nextFrame = () => {
   frame = (frame + 1) % frames.length;
 };
 
-const fps = 30;
+const fps = Number(process.argv[2]);
 const frameTime = 1000 / fps;
 
 const draw = async () => {
