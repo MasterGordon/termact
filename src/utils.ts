@@ -103,3 +103,18 @@ export const right = (text: string) => {
 export const moveCursor = (x: number, y: number) => {
   return `\x1b[${y};${x}H`;
 };
+
+// https://en.wikipedia.org/wiki/Grayscale#Luma_coding_in_video_systems
+export const ntsc = (r: number, g: number, b: number) => {
+  return r * 0.299 + g * 0.587 + b * 0.114;
+};
+
+// https://paulbourke.net/dataformats/asciiart/
+const grayscaleCharacters =
+  "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+    .split("")
+    .reverse();
+export const getGrayscaleCharacter = (brightness: number) => {
+  const index = Math.floor((brightness / 255) * grayscaleCharacters.length);
+  return grayscaleCharacters[index];
+};

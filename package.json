@@ -8,10 +8,9 @@
   "devDependencies": {
     "@types/ansi-escape-sequences": "^4.0.4",
     "@types/bun": "latest",
+    "@types/pngjs": "^6.0.5",
     "@xterm/headless": "^5.5.0",
     "typescript": "^5.4.5"
   },
-  "dependencies": {
-    "ansi-escape-sequences": "^6.2.2"
-  }
+  "dependencies": { "pngjs": "^7.0.0" }
 }
