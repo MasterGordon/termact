@@ -31,7 +31,8 @@ export const fg = (args: [number, number, number] | string) => {
   if (typeof args === "string") {
     return color(...hexToRgb(args));
   } else {
-    return color(...args);
+    const [r, g, b] = args;
+    return color(r, g, b);
   }
 };
 
@@ -116,5 +117,5 @@ const grayscaleCharacters =
     .reverse();
 export const getGrayscaleCharacter = (brightness: number) => {
   const index = Math.floor((brightness / 255) * grayscaleCharacters.length);
-  return grayscaleCharacters[index];
+  return grayscaleCharacters[index] || " ";
 };
