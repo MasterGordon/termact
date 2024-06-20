@@ -73,7 +73,7 @@ export const frame = (text: string, frame: Frame) => {
   const textWidth = Math.max(
     ...cleanse(text)
       .split("\n")
-      .map((l) => l.length)
+      .map((l) => l.length),
   );
 
   const modifiedText = text
@@ -106,7 +106,7 @@ export const moveCursor = (x: number, y: number) => {
 };
 
 // https://en.wikipedia.org/wiki/Grayscale#Luma_coding_in_video_systems
-export const ntsc = (r: number, g: number, b: number) => {
+export const getNtscGrayscale = (r: number, g: number, b: number) => {
   return r * 0.299 + g * 0.587 + b * 0.114;
 };
 

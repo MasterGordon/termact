@@ -95,7 +95,7 @@ class Terminal {
                 destructured.y,
                 button,
                 destructured.kind == "M" ? "down" : "up",
-                modifier
+                modifier,
               );
             }
           }
@@ -127,10 +127,11 @@ class Terminal {
   }
 
   public printAt(x: number, y: number, text: string) {
+    let cy = y;
     for (const line of text.split("\n")) {
-      this.write(moveCursor(x, y));
+      this.write(moveCursor(x, cy));
       this.write(line);
-      y++;
+      cy++;
     }
   }
 

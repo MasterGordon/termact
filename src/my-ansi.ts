@@ -16,7 +16,7 @@ export const modifiersMask = {
 };
 
 const mouseEventRegex = new RegExp(
-  `${regexEscapedCsi}<(\\d+);(\\d+);(\\d+)(M|m)$`
+  `${regexEscapedCsi}<(\\d+);(\\d+);(\\d+)(M|m)$`,
 );
 
 export const destructMouseEvent = (data: string) => {
@@ -38,7 +38,7 @@ export const decodeButton = (code: number) => {
     code & ~(modifiersMask.shift | modifiersMask.meta | modifiersMask.ctrl);
   const button =
     Object.keys(buttonsMask).find(
-      (k) => buttonsMask[k as keyof typeof buttonsMask] == codeWithoutModifiers
+      (k) => buttonsMask[k as keyof typeof buttonsMask] == codeWithoutModifiers,
     ) ||
     ((codeWithoutModifiers & 32) == 32 // move
       ? "move"
@@ -80,5 +80,14 @@ const myAnsi = {
   showCursor: csi + "?25h",
   eraseInDisplay: csi + "2J",
 } as const;
+
+type CursorStyle =
+  | "blinkingBlock"
+  | "block"
+  | "blinkingUnderline"
+  | "underline"
+  | "blinkingBar"
+  | "bar";
+export const setCursorStyle = (style: CursorStyle) => csi + `${style} q`;
 
 export default myAnsi;

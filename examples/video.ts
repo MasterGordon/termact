@@ -2,7 +2,14 @@ import { Glob } from "bun";
 import Terminal from "../src/Terminal";
 import { PNG } from "pngjs";
 import sharp from "sharp";
-import { bg, bold, fg, getGrayscaleCharacter, ntsc, reset } from "../src/utils";
+import {
+  bg,
+  bold,
+  fg,
+  getGrayscaleCharacter,
+  getNtscGrayscale,
+  reset,
+} from "../src/utils";
 import { Readable } from "stream";
 import myAnsi from "../src/my-ansi";
 
@@ -100,7 +107,7 @@ const draw = async () => {
       const r = png.data[idx];
       const g = png.data[idx + 1];
       const b = png.data[idx + 2];
-      const grayScale = ntsc(r, g, b);
+      const grayScale = getNtscGrayscale(r, g, b);
       const char = getGrayscaleCharacter(grayScale);
       matrix[y][x] = fg([r, g, b]) + char;
     }
