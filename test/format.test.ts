@@ -1,6 +1,6 @@
 import { test, expect, it } from "bun:test";
 import { bg, bold, center, fg, frame, reset, right } from "../src/utils";
-import type { Frame } from "../src/types/Frame";
+import type { Border } from "../src/types/Frame";
 
 test("colors", () => {
   const res = `${bg("#ff0000")}${fg("#f0f0f0")}${bold()}Hello world${reset()}`;
@@ -9,7 +9,7 @@ test("colors", () => {
 });
 
 test("frame", () => {
-  const frameConfig: Frame = {
+  const frameConfig: Border = {
     vertical: "│",
     horizontal: "─",
     cornerTopLeft: "┌",

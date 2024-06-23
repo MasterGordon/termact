@@ -1,4 +1,4 @@
-export interface Frame {
+export interface Border {
   cornerTopLeft: string;
   cornerTopRight: string;
   cornerBottomLeft: string;

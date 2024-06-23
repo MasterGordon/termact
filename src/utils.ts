@@ -1,4 +1,5 @@
-import type { Frame } from "./types/Frame";
+import type { Border } from "./types/Frame";
+import type { Style } from "./types/Style";
 
 export const hasColorSupport = () => {
   return (
@@ -54,13 +55,19 @@ export const italic = () => "\x1b[3m";
 
 export const underline = () => "\x1b[4m";
 
+export const blink = () => "\x1b[5m";
+
 export const inverse = () => "\x1b[7m";
 
 export const hidden = () => "\x1b[8m";
 
+export const strikethrough = () => "\x1b[9m";
+
+export const doubleUnderline = () => "\x1b[21m";
+
 export const cleanse = (text: string) => text.replace(/\u001b\[.+?m/g, "");
 
-export const frame = (text: string, frame: Frame) => {
+export const frame = (text: string, frame: Border) => {
   const {
     vertical,
     horizontal,
@@ -103,6 +110,21 @@ export const right = (text: string) => {
 
 export const moveCursor = (x: number, y: number) => {
   return `\x1b[${y};${x}H`;
+};
+
+export const style = (style: Style) => {
+  let result = "";
+  if (style.fg) result += fg(style.fg);
+  if (style.bg) result += bg(style.bg);
+  if (style.bold) result += bold();
+  if (style.italic) result += italic();
+  if (style.underline) result += underline();
+  if (style.blink) result += blink();
+  if (style.reverse) result += inverse();
+  if (style.hidden) result += hidden();
+  if (style.strikethrough) result += strikethrough();
+  if (style.doubleUnderline) result += doubleUnderline();
+  return result;
 };
 
 // https://en.wikipedia.org/wiki/Grayscale#Luma_coding_in_video_systems

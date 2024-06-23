@@ -127,12 +127,7 @@ class Terminal {
   }
 
   public printAt(x: number, y: number, text: string) {
-    let cy = y;
-    for (const line of text.split("\n")) {
-      this.write(moveCursor(x, cy));
-      this.write(line);
-      cy++;
-    }
+    this.write(`${moveCursor(x + 1, y + 1) + text}\n`);
   }
 
   private init() {
@@ -172,6 +167,14 @@ class Terminal {
 
   public destroy() {
     this.events.emit("destroy");
+  }
+
+  public clear() {
+    this.write(myAnsi.eraseInDisplay);
+  }
+
+  public getSize() {
+    return process.stdout.getWindowSize();
   }
 }
 

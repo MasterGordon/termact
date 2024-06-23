@@ -1,14 +1,16 @@
-import type { Node } from "yoga-layout";
+import type { Node as YogaNode } from "yoga-layout";
 import config from "../yoga/config";
-import Yoga from "yoga-layout";
+import Yoga, { Edge } from "yoga-layout";
 import { cleanse } from "../utils";
 import type { Style } from "../types/Style";
+import type { Border } from "../types/Frame";
 
-export class Box {
-  public parent?: Box;
-  public node: Node;
-  public children: Box[];
+export class Node {
+  public parent?: Node;
+  public node: YogaNode;
+  public children: Node[];
   public text?: string;
+  public border?: Border;
   public style: Style = {};
 
   constructor() {
@@ -16,7 +18,7 @@ export class Box {
     this.children = [];
   }
 
-  public addChild(child: Box) {
+  public addChild(child: Node) {
     this.children.push(child);
     child.parent = this;
     this.node.insertChild(child.node, this.node.getChildCount());
@@ -24,7 +26,15 @@ export class Box {
 
   public setText(text: string) {
     this.text = text;
-    this.node.setWidth(cleanse(text).length);
-    this.node.setHeight(text.split("\n").length);
+    const lines = text.split("\n");
+    const linesCleansed = lines.map(cleanse);
+    const width = linesCleansed.reduce((a, b) => Math.max(a, b.length), 0);
+    this.node.setWidth(width);
+    this.node.setHeight(linesCleansed.length);
+  }
+
+  public setBorder(border: Border) {
+    this.border = border;
+    this.node.setBorder(Edge.All, 1);
   }
 }

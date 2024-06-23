@@ -7,4 +7,6 @@ export type Style = {
   blink?: boolean;
   reverse?: boolean;
   hidden?: boolean;
+  strikethrough?: boolean;
+  doubleUnderline?: boolean;
 };
