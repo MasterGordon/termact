@@ -1,3 +1,4 @@
+import { LinearScreenBuffer } from "./LinearScreenBuffer";
 import EventEmitter from "./lib/EventEmitter";
 import type { EventMap } from "./lib/EventEmitter";
 import myAnsi, {
@@ -46,6 +47,7 @@ class Terminal {
   private stdout: NodeJS.WritableStream;
   private stderr: NodeJS.WritableStream;
   private options: TerminalOptions;
+  private screenBuffer: LinearScreenBuffer;
 
   public events: EventEmitter<TerminalEvents>;
 
@@ -54,6 +56,8 @@ class Terminal {
     this.stdout = options.stdout || process.stdout;
     this.stderr = options.stderr || process.stderr;
     this.options = options;
+    const [terminalWidth, terminalHeight] = process.stdout.getWindowSize();
+    this.screenBuffer = new LinearScreenBuffer(terminalWidth, terminalHeight);
 
     this.events = new EventEmitter<TerminalEvents>();
 
@@ -175,6 +179,10 @@ class Terminal {
 
   public getSize() {
     return process.stdout.getWindowSize();
+  }
+
+  public flush() {
+    this.printAt(0, 0, this.screenBuffer.toString());
   }
 }
 
