@@ -113,7 +113,9 @@ class Terminal {
       this.events.emit("destroy");
     };
     const resizeListener = () => {
-      this.events.emit("resize", ...process.stdout.getWindowSize());
+      const [terminalWidth, terminalHeight] = process.stdout.getWindowSize();
+      this.events.emit("resize", terminalWidth, terminalHeight);
+      this.screenBuffer.resize(terminalWidth, terminalHeight);
     };
 
     process.on("exit", processExitListener);
