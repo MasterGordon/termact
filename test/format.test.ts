@@ -1,4 +1,4 @@
-import { test, expect, it } from "bun:test";
+import { test, expect } from "bun:test";
 import { bg, bold, center, fg, frame, reset, right } from "../src/utils";
 import type { Border } from "../src/types/Frame";
 

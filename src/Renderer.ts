@@ -2,6 +2,7 @@ import { Direction } from "yoga-layout";
 import type Terminal from "./Terminal";
 import type { Node } from "./objects/Box";
 import { cleanse, style } from "./utils";
+import { logToFile } from "./lib/logToFile";
 
 class Renderer {
   private terminal: Terminal;
@@ -21,13 +22,14 @@ class Renderer {
   }
 
   public render() {
-    this.terminal.clear();
+    logToFile("render");
     this.root!.node.calculateLayout(
       this.terminalWidth,
       undefined,
       Direction.LTR,
     );
     this.renderNode(this.root!);
+    this.terminal.flush();
   }
 
   private renderNode(node: Node) {
@@ -43,7 +45,7 @@ class Renderer {
       const cleansedLength = cleanse(line).length;
       line = style(node.style) + line;
       line += " ".repeat(layout.width - cleansedLength);
-      this.terminal.printAt(layout.left, layout.top + index, line);
+      this.terminal.printAtBuffer(layout.left, layout.top + index, line);
     });
     if (node.children.length > 0) {
       node.children.forEach((node) => this.renderNode(node));

@@ -141,3 +141,29 @@ export const getGrayscaleCharacter = (brightness: number) => {
   const index = Math.floor((brightness / 255) * grayscaleCharacters.length);
   return grayscaleCharacters[index] || " ";
 };
+
+/**
+ * Returns an array of characters, each entry contains a character and its escapes
+ * example:
+ * "\x1b[31mHello\x1b[0m" -> ["\x1b[31mH", "e", "l", "l", "o", "\x1b[0m"]
+ */
+export const splitCharacters = (text: string) => {
+  const result = [];
+  let current = "";
+  let escape = false;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char == "\x1b") {
+      escape = true;
+      current += char;
+    } else if (escape) {
+      current += char;
+      escape = false;
+    } else {
+      current += char;
+      result.push(current);
+      current = "";
+    }
+  }
+  return result;
+};

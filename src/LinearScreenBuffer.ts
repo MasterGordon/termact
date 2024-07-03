@@ -1,10 +1,12 @@
+import { logToFile } from "./lib/logToFile";
+
 export class LinearScreenBuffer {
   private buffer: string[];
   private width: number;
   private height: number;
 
   constructor(width: number, height: number) {
-    this.buffer = Array(height * width).fill("");
+    this.buffer = Array(height * width).fill(" ");
     this.width = width;
     this.height = height;
   }
@@ -26,19 +28,20 @@ export class LinearScreenBuffer {
   }
 
   public resize(width: number, height: number) {
+    logToFile("resize");
     if (width * height < this.buffer.length) {
       this.width = width;
       this.height = height;
       return;
     }
 
-    this.buffer = Array(height * width).fill("");
+    this.buffer = Array(height * width).fill(" ");
     this.width = width;
     this.height = height;
   }
 
   public clear() {
-    this.buffer.fill("");
+    this.buffer = this.buffer.fill(" ");
   }
 
   public toString() {

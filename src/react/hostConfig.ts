@@ -30,4 +30,5 @@ type TermactHostConfig = HostConfig<
   unknown
 >;
 
+// @ts-expect-error TODO: fix this
 const hostConfig: TermactHostConfig = {};

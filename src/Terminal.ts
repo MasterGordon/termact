@@ -10,7 +10,7 @@ import myAnsi, {
 } from "./my-ansi";
 import type { Implements } from "./types/Implements";
 import uniPrint from "./uni-print";
-import { moveCursor } from "./utils";
+import { moveCursor, splitCharacters } from "./utils";
 
 interface Modifier {
   shift: boolean;
@@ -181,6 +181,16 @@ class Terminal {
 
   public getSize() {
     return process.stdout.getWindowSize();
+  }
+
+  public printAtBuffer(x: number, y: number, text: string) {
+    const lines = text.split("\n");
+    for (let i = 0; i < lines.length; i++) {
+      const chars = splitCharacters(lines[i]);
+      for (let j = 0; j < chars.length; j++) {
+        this.screenBuffer.set(x + j, y + i, chars[j]);
+      }
+    }
   }
 
   public flush() {
